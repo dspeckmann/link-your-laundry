@@ -4,18 +4,20 @@ using LinkYourLaundry;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LinkYourLaundry.Migrations
 {
     [DbContext(typeof(LaundryDbContext))]
-    partial class LaundryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181115170841_AddInvitations")]
+    partial class AddInvitations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -58,12 +60,11 @@ namespace LinkYourLaundry.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("GroupOwnerId");
+
                     b.HasIndex("InvitedUserId");
 
-                    b.HasIndex("GroupOwnerId", "InvitedUserId")
-                        .IsUnique();
-
-                    b.ToTable("Invitations");
+                    b.ToTable("Invitation");
                 });
 
             modelBuilder.Entity("LinkYourLaundry.Models.LaundryTemplate", b =>
@@ -90,28 +91,7 @@ namespace LinkYourLaundry.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.HasIndex("Name", "UserId")
-                        .IsUnique()
-                        .HasFilter("[Name] IS NOT NULL");
-
                     b.ToTable("LaundryTemplates");
-                });
-
-            modelBuilder.Entity("LinkYourLaundry.Models.Role", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ConcurrencyStamp");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("NormalizedName");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("LinkYourLaundry.Models.User", b =>
@@ -151,10 +131,6 @@ namespace LinkYourLaundry.Migrations
                     b.Property<string>("UserName");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Email")
-                        .IsUnique()
-                        .HasFilter("[Email] IS NOT NULL");
 
                     b.HasIndex("GroupOwnerId");
 

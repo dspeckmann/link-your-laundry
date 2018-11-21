@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LinkYourLaundry.Migrations
 {
     [DbContext(typeof(LaundryDbContext))]
-    [Migration("20180819171710_Initial")]
-    partial class Initial
+    [Migration("20181115165022_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,7 +33,7 @@ namespace LinkYourLaundry.Migrations
 
                     b.Property<int>("LaundryTemplateId");
 
-                    b.Property<int?>("UserId");
+                    b.Property<int>("UserId");
 
                     b.Property<DateTime>("WashStartTime");
 
@@ -44,19 +44,6 @@ namespace LinkYourLaundry.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("ActiveLaundries");
-                });
-
-            modelBuilder.Entity("LinkYourLaundry.Models.Group", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Groups");
                 });
 
             modelBuilder.Entity("LinkYourLaundry.Models.LaundryTemplate", b =>
@@ -100,7 +87,7 @@ namespace LinkYourLaundry.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<int?>("GroupId");
+                    b.Property<int?>("GroupOwnerId");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -124,7 +111,7 @@ namespace LinkYourLaundry.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GroupId");
+                    b.HasIndex("GroupOwnerId");
 
                     b.ToTable("Users");
                 });
@@ -134,11 +121,12 @@ namespace LinkYourLaundry.Migrations
                     b.HasOne("LinkYourLaundry.Models.LaundryTemplate", "LaundryTemplate")
                         .WithMany("ActiveLaundries")
                         .HasForeignKey("LaundryTemplateId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("LinkYourLaundry.Models.User")
+                    b.HasOne("LinkYourLaundry.Models.User", "User")
                         .WithMany("ActiveLaundries")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("LinkYourLaundry.Models.LaundryTemplate", b =>
@@ -151,9 +139,9 @@ namespace LinkYourLaundry.Migrations
 
             modelBuilder.Entity("LinkYourLaundry.Models.User", b =>
                 {
-                    b.HasOne("LinkYourLaundry.Models.Group", "Group")
-                        .WithMany("Users")
-                        .HasForeignKey("GroupId");
+                    b.HasOne("LinkYourLaundry.Models.User", "GroupOwner")
+                        .WithMany("GroupMembers")
+                        .HasForeignKey("GroupOwnerId");
                 });
 #pragma warning restore 612, 618
         }

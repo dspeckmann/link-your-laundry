@@ -12,6 +12,8 @@ namespace LinkYourLaundry.Models
         public DateTime DryStartTime { get; set; }
         public bool Completed { get; set; }
         public int LaundryTemplateId { get; set; }
-        public LaundryTemplate LaundryTemplate { get; set; }
+        public virtual LaundryTemplate LaundryTemplate { get; set; }
+        public int UserId { get; set; }
+        public virtual User User { get; set; }
     }
 }

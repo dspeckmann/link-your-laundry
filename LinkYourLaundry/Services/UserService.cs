@@ -1,6 +1,7 @@
 ﻿using LinkYourLaundry.Models;
 using LinkYourLaundry.ViewModels;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -24,6 +25,16 @@ namespace LinkYourLaundry.Services
             this.configuration = configuration;
             this.context = context;
             this.passwordHasher = passwordHasher;
+        }
+
+        public User GetById(int id)
+        {
+            return context.Users.Find(id);
+        }
+
+        public User GetByEmail(string email)
+        {
+            return context.Users.FirstOrDefault(u => u.Email == email);
         }
 
         public async Task<User> Register(RegisterViewModel viewModel)

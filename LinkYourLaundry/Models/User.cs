@@ -8,9 +8,12 @@ namespace LinkYourLaundry.Models
 {
     public class User : IdentityUser<int>
     {
-        public int? GroupId { get; set; }
-        public Group Group { get; set; }
-        public ICollection<LaundryTemplate> LaundryTemplates { get; set; }
-        public ICollection<ActiveLaundry> ActiveLaundries { get; set; }
+        public int? GroupOwnerId { get; set; }
+        public virtual User GroupOwner { get; set; }
+        public virtual ICollection<LaundryTemplate> LaundryTemplates { get; set; }
+        public virtual ICollection<ActiveLaundry> ActiveLaundries { get; set; }
+        public virtual ICollection<User> GroupMembers { get; set; }
+        public virtual ICollection<Invitation> PendingActiveInvitations { get; set; }
+        public virtual ICollection<Invitation> PendingPassiveInvitations { get; set; }
     }
 }

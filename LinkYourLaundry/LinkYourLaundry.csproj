@@ -9,6 +9,16 @@
     <Compile Remove="Migrations\20180819165944_Initial.Designer.cs" />
     <Compile Remove="Migrations\20180819170105_UpdateUserTable.cs" />
     <Compile Remove="Migrations\20180819170105_UpdateUserTable.Designer.cs" />
+    <Compile Remove="Migrations\20180819171710_Initial.cs" />
+    <Compile Remove="Migrations\20180819171710_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20180926181839_AddGroupToken.cs" />
+    <Compile Remove="Migrations\20180926181839_AddGroupToken.Designer.cs" />
+    <Compile Remove="Migrations\20180926183846_AddUserIdToActiveLaundry.cs" />
+    <Compile Remove="Migrations\20180926183846_AddUserIdToActiveLaundry.Designer.cs" />
+    <Compile Remove="Migrations\20181115163615_ChangeGroupsToUsers.cs" />
+    <Compile Remove="Migrations\20181115163615_ChangeGroupsToUsers.Designer.cs" />
+    <Compile Remove="Migrations\20181115163904_ChangeGroupsToUsers.cs" />
+    <Compile Remove="Migrations\20181115163904_ChangeGroupsToUsers.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,7 +27,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="2.1.4" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.6" />
   </ItemGroup>
 
 </Project>

@@ -15,7 +15,7 @@ namespace LinkYourLaundry.Models
         public string DryCycle { get; set; }
         public TimeSpan DryDuration { get; set; }
         public int UserId { get; set; }
-        public User User { get; set; }
-        public ICollection<ActiveLaundry> ActiveLaundries { get; set; }
+        public virtual User User { get; set; }
+        public virtual ICollection<ActiveLaundry> ActiveLaundries { get; set; }
     }
 }

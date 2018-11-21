@@ -17,7 +17,7 @@ namespace LinkYourLaundry.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthenticationController : ControllerBase
+    public class AuthenticationController : BaseController
     {
         private readonly UserService userService;
 

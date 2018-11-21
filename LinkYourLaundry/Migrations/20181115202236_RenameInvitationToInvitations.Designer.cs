@@ -4,14 +4,16 @@ using LinkYourLaundry;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LinkYourLaundry.Migrations
 {
     [DbContext(typeof(LaundryDbContext))]
-    partial class LaundryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181115202236_RenameInvitationToInvitations")]
+    partial class RenameInvitationToInvitations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,10 +60,9 @@ namespace LinkYourLaundry.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("InvitedUserId");
+                    b.HasIndex("GroupOwnerId");
 
-                    b.HasIndex("GroupOwnerId", "InvitedUserId")
-                        .IsUnique();
+                    b.HasIndex("InvitedUserId");
 
                     b.ToTable("Invitations");
                 });
@@ -89,10 +90,6 @@ namespace LinkYourLaundry.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
-
-                    b.HasIndex("Name", "UserId")
-                        .IsUnique()
-                        .HasFilter("[Name] IS NOT NULL");
 
                     b.ToTable("LaundryTemplates");
                 });
@@ -151,10 +148,6 @@ namespace LinkYourLaundry.Migrations
                     b.Property<string>("UserName");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Email")
-                        .IsUnique()
-                        .HasFilter("[Email] IS NOT NULL");
 
                     b.HasIndex("GroupOwnerId");
 

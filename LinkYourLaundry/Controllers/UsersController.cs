@@ -14,13 +14,21 @@ namespace LinkYourLaundry.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class UsersController : BaseController
     {
         private readonly UserService userService;
 
         public UsersController(UserService userService)
         {
             this.userService = userService;
+        }
+
+        [HttpGet("me")]
+        public async Task<IActionResult> GetMe()
+        {
+            var user = userService.GetById(GetCurrentUserId());
+            var result = Ok(user);
+            return result;
         }
 
         [AllowAnonymous]
