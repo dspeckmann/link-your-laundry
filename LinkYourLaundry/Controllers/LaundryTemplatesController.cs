@@ -93,6 +93,8 @@ namespace LinkYourLaundry.Controllers
                 return BadRequest(ModelState);
             }
 
+            laundryTemplate.UserId = GetCurrentUserId();
+
             _context.LaundryTemplates.Add(laundryTemplate);
             await _context.SaveChangesAsync();
 
