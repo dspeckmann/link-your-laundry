@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using LinkYourLaundry;
 using LinkYourLaundry.Models;
 using Microsoft.AspNetCore.Authorization;
+using LinkYourLaundry.ViewModels;
 
 namespace LinkYourLaundry.Controllers
 {
@@ -86,17 +87,25 @@ namespace LinkYourLaundry.Controllers
 
         // POST: api/ActiveLaundries
         [HttpPost]
-        public async Task<IActionResult> PostActiveLaundry([FromBody] ActiveLaundry activeLaundry)
+        public async Task<IActionResult> PostActiveLaundry([FromBody] CreateActiveLaundryViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
+            var activeLaundry = new ActiveLaundry
+            {
+                UserId = GetCurrentUserId(),
+                LaundryTemplateId = viewModel.LaundryTemplateId,
+                WashStartTime = viewModel.WashStartTime,
+                Completed = false
+            };
+
             _context.ActiveLaundries.Add(activeLaundry);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetActiveLaundry", new { id = activeLaundry.Id }, activeLaundry);
+            return CreatedAtAction(nameof(GetActiveLaundry), new { id = activeLaundry.Id }, activeLaundry);
         }
 
         // DELETE: api/ActiveLaundries/5
