@@ -28,7 +28,7 @@ namespace LinkYourLaundry.Controllers
         [HttpGet]
         public IEnumerable<ActiveLaundry> GetActiveLaundries()
         {
-            return _context.ActiveLaundries;
+            return _context.ActiveLaundries.Where(laundry => !laundry.Completed);
         }
 
         // GET: api/ActiveLaundries/5
