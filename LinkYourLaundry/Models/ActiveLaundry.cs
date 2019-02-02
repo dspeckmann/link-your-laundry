@@ -9,7 +9,7 @@ namespace LinkYourLaundry.Models
     {
         public int Id { get; set; }
         public DateTime WashStartTime { get; set; }
-        public DateTime DryStartTime { get; set; }
+        public DateTime? DryStartTime { get; set; }
         public bool Completed { get; set; }
         public int LaundryTemplateId { get; set; }
         public virtual LaundryTemplate LaundryTemplate { get; set; }

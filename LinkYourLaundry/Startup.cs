@@ -84,6 +84,15 @@ namespace LinkYourLaundry
             app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMvc();
+
+            // Run database migrations if necessary
+            using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                using (var context = scope.ServiceProvider.GetRequiredService<LaundryDbContext>())
+                { 
+                    context.Database.Migrate();
+                }
+            }
         }
     }
 }
