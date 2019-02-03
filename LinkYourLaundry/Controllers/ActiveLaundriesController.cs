@@ -82,7 +82,7 @@ namespace LinkYourLaundry.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(activeLaundry);
         }
 
         // POST: api/ActiveLaundries

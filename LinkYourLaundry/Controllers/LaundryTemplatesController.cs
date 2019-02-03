@@ -81,7 +81,7 @@ namespace LinkYourLaundry.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(laundryTemplate);
         }
 
         // POST: api/LaundryTemplates
