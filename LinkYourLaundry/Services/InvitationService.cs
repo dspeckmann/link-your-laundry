@@ -27,21 +27,22 @@ namespace LinkYourLaundry.Services
 
         public async Task<Invitation> AddInvitation(InvitationViewModel viewModel, int groupOwnerId)
         {
-            /*
-            var invitation = new Invitation
-            {
-                GroupOwnerId = groupOwnerId,
-                InvitedUser = userService.GetByEmail(viewModel.Email)
-            };
-
-            await context.Invitations.AddAsync(invitation);
-            */
-
             var invitedUser = userService.GetByEmail(viewModel.Email);
+            if(invitedUser == null)
+            {
+                // TODO: Error handling. Throw exception maybe?
+                return null;
+            }
+
+            var existingInvitation = context.Invitations.FirstOrDefault(i => i.GroupOwnerId == groupOwnerId && i.InvitedUserId == invitedUser.Id);
+            if (existingInvitation != null)
+            {
+                return existingInvitation;
+            }
+
             var invitation = new Invitation { GroupOwnerId = groupOwnerId };
             invitedUser.PendingPassiveInvitations.Add(invitation);
-
-
+            
             await context.SaveChangesAsync();
 
             return invitation;
