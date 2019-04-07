@@ -54,7 +54,7 @@ namespace LinkYourLaundry.Services
 
         public JwtSecurityToken Login(LoginViewModel viewModel)
         {
-            var user = context.Users.FirstOrDefault(u => u.Email == viewModel.Username || u.UserName == viewModel.Username);
+            var user = context.Users.FirstOrDefault(u => u.Email == viewModel.Email);
             if (user == null) return null; // TODO: Error handling
 
             // TODO: PasswordVerificationResult.SuccessRehashNeeded?
