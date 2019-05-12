@@ -15,5 +15,6 @@ namespace LinkYourLaundry.Models
         public virtual ICollection<User> GroupMembers { get; set; }
         public virtual ICollection<Invitation> PendingActiveInvitations { get; set; }
         public virtual ICollection<Invitation> PendingPassiveInvitations { get; set; }
+        public virtual ICollection<RefreshToken> RefreshTokens { get; set; }
     }
 }

@@ -14,6 +14,7 @@ namespace LinkYourLaundry
         public DbSet<LaundryTemplate> LaundryTemplates { get; protected set; }
         public DbSet<ActiveLaundry> ActiveLaundries { get; protected set; }
         public DbSet<Invitation> Invitations { get; protected set; }
+        public DbSet<RefreshToken> RefreshTokens { get; protected set; }
 
         public LaundryDbContext(DbContextOptions options)
             : base(options)

@@ -27,12 +27,28 @@ namespace LinkYourLaundry.Controllers
         }
 
         [AllowAnonymous]
+        [HttpPost]
         public IActionResult Post([FromBody] LoginViewModel viewModel)
         {
-            var token = userService.Login(viewModel);
-            if (token != null)
+            var result = userService.Login(viewModel);
+            if (result != null)
             {
-                return Ok(new { Token = new JwtSecurityTokenHandler().WriteToken(token) });
+                return Ok(result);
+            }
+            else
+            {
+                return Forbid();
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPut]
+        public IActionResult Put([FromBody] RefreshViewModel viewModel)
+        {
+            var result = userService.Refresh(viewModel);
+            if (result != null)
+            {
+                return Ok(result);
             }
             else
             {
